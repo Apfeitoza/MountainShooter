@@ -1,5 +1,6 @@
+import random
 import sys
-from code.Const import COLOR_WHITE, MENU_OPTION, WIN_HEIGHT
+from code.Const import COLOR_WHITE, EVENT_ENEMY, MENU_OPTION, SPAWN_TIME, WIN_HEIGHT
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 
@@ -16,6 +17,8 @@ class Level:
         self.entity_list.append(EntityFactory.get_entity('Player1'))
         if game_mode in [MENU_OPTION[1], MENU_OPTION[2]]:
             self.entity_list.append(EntityFactory.get_entity('Player2'))
+        pygame.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
+
         self.timeout = 20000  # 20 segundos
 
     def run(
@@ -35,6 +38,9 @@ class Level:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == EVENT_ENEMY:
+                    choice = random.choice(('Enemy1', 'Enemy2'))
+                    self.entity_list.append(EntityFactory.get_entity(choice))
 
             # printed text
             self.level_text(

@@ -1,5 +1,6 @@
 import random
 import sys
+from code.EntityMediator import EntityMediator
 from code.Const import COLOR_WHITE, EVENT_ENEMY, MENU_OPTION, SPAWN_TIME, WIN_HEIGHT
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
@@ -58,6 +59,9 @@ class Level:
                 COLOR_WHITE,
                 (10, WIN_HEIGHT - 20),
             )
+            #faz a mediação de colisões dentro do EntityMediator
+            EntityMediator.verify_collision(entity_list=self.entity_list)
+            EntityMediator.verify_health(entity_list=self.entity_list)
             pygame.display.flip()
         pass
 

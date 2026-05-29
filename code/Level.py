@@ -1,9 +1,11 @@
 import random
 import sys
-from code.EntityMediator import EntityMediator
 from code.Const import COLOR_WHITE, EVENT_ENEMY, MENU_OPTION, SPAWN_TIME, WIN_HEIGHT
+from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
+from code.EntityMediator import EntityMediator
+from code.Player import Player
 
 import pygame
 
@@ -35,6 +37,10 @@ class Level:
                     source=ent.surf, dest=ent.rect
                 )  # blit - desenhar imagem na tela
                 ent.move()
+                if isinstance(ent, (Player, Enemy)):
+                    shoot = ent.shoot()
+                    if shoot is not None:
+                        self.entity_list.append(shoot)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -59,7 +65,7 @@ class Level:
                 COLOR_WHITE,
                 (10, WIN_HEIGHT - 20),
             )
-            #faz a mediação de colisões dentro do EntityMediator
+            # faz a mediação de colisões dentro do EntityMediator
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
             pygame.display.flip()

@@ -1,6 +1,14 @@
 import random
 import sys
-from code.Const import COLOR_WHITE, EVENT_ENEMY, MENU_OPTION, SPAWN_TIME, WIN_HEIGHT
+from code.Const import (
+    C_CYAN,
+    C_GREEN,
+    C_WHITE,
+    EVENT_ENEMY,
+    MENU_OPTION,
+    SPAWN_TIME,
+    WIN_HEIGHT,
+)
 from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
@@ -41,6 +49,21 @@ class Level:
                     shoot = ent.shoot()
                     if shoot is not None:
                         self.entity_list.append(shoot)
+                if ent.name == 'Player1':
+                    self.level_text(
+                        14,
+                        f'Player 1 - Health: {ent.health} | Score:{ent.score}',
+                        C_GREEN,
+                        (10, 25),
+                    )
+                if ent.name == 'Player2':
+                    self.level_text(
+                        14,
+                        f'Player 2 - Health: {ent.health} | Score:{ent.score}',
+                        C_CYAN,
+                        (10, 45),
+                    )
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -53,16 +76,16 @@ class Level:
             self.level_text(
                 14,
                 f'{self.name} - Timeout: {self.timeout / 1000: .1f}s',
-                COLOR_WHITE,
+                C_WHITE,
                 (10, 5),
             )
             self.level_text(
-                14, f'fps: {clock.get_fps(): .0f}', COLOR_WHITE, (10, WIN_HEIGHT - 35)
+                14, f'fps: {clock.get_fps(): .0f}', C_WHITE, (10, WIN_HEIGHT - 35)
             )
             self.level_text(
                 14,
                 f'entidades: {len(self.entity_list)}',
-                COLOR_WHITE,
+                C_WHITE,
                 (10, WIN_HEIGHT - 20),
             )
             # faz a mediação de colisões dentro do EntityMediator

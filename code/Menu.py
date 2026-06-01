@@ -1,4 +1,4 @@
-from code.Const import COLOR_ORANGE, COLOR_WHITE, COLOR_YELLOW, MENU_OPTION, WIN_WIDTH
+from code.Const import C_ORANGE, C_WHITE, C_YELLOW, MENU_OPTION, WIN_WIDTH
 
 import pygame.image
 from pygame import Rect, Surface
@@ -26,21 +26,21 @@ class Menu:
             self.window.blit(source=self.surf, dest=self.rect)
             # Texto do Menu
             self.menu_text(
-                40, 'Mountain', COLOR_ORANGE, ((WIN_WIDTH / 2), 70)
+                40, 'Mountain', C_ORANGE, ((WIN_WIDTH / 2), 70)
             )  # tamanho do texto, texto, cor do texto, centralização
-            self.menu_text(40, 'Shooter', COLOR_ORANGE, ((WIN_WIDTH / 2), 120))
+            self.menu_text(40, 'Shooter', C_ORANGE, ((WIN_WIDTH / 2), 120))
             # Para o texto do menu ele criou uma tupla com varias strings e um laço para colocar elas no menu
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
                     self.menu_text(
                         20,
                         MENU_OPTION[i],
-                        COLOR_YELLOW,
+                        C_YELLOW,
                         ((WIN_WIDTH / 2), 200 + 25 * i),
                     )
                 else:
                     self.menu_text(
-                        20, MENU_OPTION[i], COLOR_WHITE, ((WIN_WIDTH / 2), 200 + 25 * i)
+                        20, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 200 + 25 * i)
                     )
 
             pygame.display.flip()
